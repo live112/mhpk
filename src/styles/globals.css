@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+body {
+  font-family: "Hi Melody", cursive;
+}
