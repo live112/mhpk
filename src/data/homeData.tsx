@@ -35,7 +35,7 @@ export const reasons = [
   "Porque incluso sin decir nada me la paso increible contigo",
   "Porque me haces reír cuando mas lo necesito",
   "Porque amo bailar contigo en la calle",
-  "Porque me entides en cada tonteria",
+  "Porque me entiendes en cada tonteria",
   "Porque amo cada que haces Mmmjumm",
   "Porque me haces apreciar cada semaforo rojo",
   "Porque tienes una increible forma de amar",

@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), tailwindcss()],
-  base: "/mhpk-frontend-react/",
+  base: "/mhpk/",
   resolve: {
     alias: {
       "@api": fileURLToPath(new URL("./src/api", import.meta.url)),
