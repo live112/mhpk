@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { ThemeSwitch } from "@components/theme-switch";
 import { useState } from "react";
+// import { ThemeSwitch } from "@components/theme-switch";
 
 const NAV_LINKS = [
   { label: "Inicio", href: "/" },
@@ -50,11 +50,11 @@ export const Navbar = () => {
                 </Link>
               ),
             )}
-            <ThemeSwitch />
+            {/* <ThemeSwitch /> */}
           </div>
 
           <div className="flex sm:hidden items-center gap-1">
-            <ThemeSwitch />
+            {/* <ThemeSwitch /> */}
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Cerrar menú" : "Abrir menú"}

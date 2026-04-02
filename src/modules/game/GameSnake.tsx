@@ -258,6 +258,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, gs: GS, imgs: ImgMap) {
 
 export function GameSnake({ onBack, sprites }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const swipeRef = useRef<HTMLDivElement>(null);
   const gsRef = useRef<GS | null>(null);
   const imgs = useRef<ImgMap>({
     headUrl: null,
@@ -403,6 +404,20 @@ export function GameSnake({ onBack, sprites }: Props) {
     if (ctx) drawFrame(ctx, gs, imgs.current);
   }, []);
 
+  // Block all native browser touch gestures (scroll, zoom, pull-to-refresh)
+  // on the game area. React's synthetic handlers still fire normally.
+  useEffect(() => {
+    const el = swipeRef.current;
+    if (!el) return;
+    const block = (e: TouchEvent) => e.preventDefault();
+    el.addEventListener("touchstart", block, { passive: false });
+    el.addEventListener("touchmove",  block, { passive: false });
+    return () => {
+      el.removeEventListener("touchstart", block);
+      el.removeEventListener("touchmove",  block);
+    };
+  }, []);
+
   useEffect(() => {
     const MAP: Record<string, Dir> = {
       ArrowUp: "up",
@@ -448,13 +463,13 @@ export function GameSnake({ onBack, sprites }: Props) {
     if (gs && !gs.dead && !isOpposite(gs.dir, dir)) gs.nextDir = dir;
   };
 
-  const pushDir = (d: Dir) => {
-    const gs = gsRef.current;
-    if (gs && !gs.dead && !isOpposite(gs.dir, d)) gs.nextDir = d;
-  };
+  //   const pushDir = (d: Dir) => {
+  //     const gs = gsRef.current;
+  //     if (gs && !gs.dead && !isOpposite(gs.dir, d)) gs.nextDir = d;
+  //   };
 
   return (
-    <div className="flex flex-col h-screen bg-slate-900 max-w-md mx-auto select-none overflow-hidden">
+    <div className="flex flex-col h-screen bg-slate-900 max-w-md mx-auto select-none overflow-hidden overscroll-none">
       {/* ── Score bar ── */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-800 shrink-0">
         <button
@@ -470,7 +485,8 @@ export function GameSnake({ onBack, sprites }: Props) {
       </div>
       {/* ── Canvas ── */}
       <div
-        className="flex-1 relative overflow-hidden"
+        ref={swipeRef}
+        className="flex-1 relative overflow-hidden touch-none"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -585,8 +601,8 @@ export function GameSnake({ onBack, sprites }: Props) {
           )}
         </AnimatePresence>
       </div>
-      ── D-pad ──
-      <div className="shrink-0 bg-slate-800 py-4 px-4">
+
+      {/* <div className="shrink-0 bg-slate-800 py-4 px-4">
         <div className="grid grid-cols-3 gap-2 w-36 mx-auto">
           <div />
           <DPadBtn label="▲" onPress={() => pushDir("up")} />
@@ -598,7 +614,7 @@ export function GameSnake({ onBack, sprites }: Props) {
           <DPadBtn label="▼" onPress={() => pushDir("down")} />
           <div />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -641,17 +657,17 @@ function EmotionBadge({ score }: { score: number }) {
   );
 }
 
-function DPadBtn({ label, onPress }: { label: string; onPress: () => void }) {
-  return (
-    <button
-      onPointerDown={(e) => {
-        e.preventDefault();
-        onPress();
-      }}
-      className="h-12 rounded-xl bg-slate-700 active:bg-indigo-600 text-white text-xl
-                 flex items-center justify-center transition-colors touch-none"
-    >
-      {label}
-    </button>
-  );
-}
+// function DPadBtn({ label, onPress }: { label: string; onPress: () => void }) {
+//   return (
+//     <button
+//       onPointerDown={(e) => {
+//         e.preventDefault();
+//         onPress();
+//       }}
+//       className="h-12 rounded-xl bg-slate-700 active:bg-indigo-600 text-white text-xl
+//                  flex items-center justify-center transition-colors touch-none"
+//     >
+//       {label}
+//     </button>
+//   );
+// }
