@@ -33,8 +33,8 @@ interface GS {
 }
 
 const CELL = 56; // px per grid cell
-const OBSTACLE_N = 4; // obstacles at game start
-const BASE_SPEED = 200; // ms per tick
+const OBSTACLE_N = 3; // obstacles at game start
+const BASE_SPEED = 300; // ms per tick
 const MIN_SPEED = 100; // fastest possible
 const SPEED_DELTA = 4; // ms gained per item collected
 const ITEM_EVERY = 20; // ticks between new item spawns
@@ -42,7 +42,7 @@ const MAX_ITEMS = 3; // max items on screen at once
 const PTS = 12; // points per item
 
 const STAGES = [
-  { min: 0, emoji: "😢", label: "My triste" },
+  { min: 0, emoji: "😢", label: "Muy tristee" },
   { min: 40, emoji: "😟", label: "Tistee" },
   { min: 80, emoji: "😐", label: "Neutral" },
   { min: 120, emoji: "🙂", label: "Alegre" },
@@ -405,7 +405,9 @@ export function GameSnake({ onBack, sprites }: Props) {
   }, []);
 
   // Auto-start on mount
-  useEffect(() => { startGame(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    startGame();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Block all native browser touch gestures (scroll, zoom, pull-to-refresh)
   // on the game area. React's synthetic handlers still fire normally.
@@ -500,7 +502,6 @@ export function GameSnake({ onBack, sprites }: Props) {
         onTouchEnd={onTouchEnd}
       >
         <canvas ref={canvasRef} className="w-full h-full block" />
-
 
         {/* Celebration */}
         <AnimatePresence>
