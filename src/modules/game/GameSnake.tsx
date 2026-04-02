@@ -472,7 +472,13 @@ export function GameSnake({ onBack, sprites }: Props) {
   //   };
 
   return (
-    <div className="flex flex-col h-screen bg-slate-900 max-w-md mx-auto select-none overflow-hidden overscroll-none">
+    <div
+      className="flex flex-col h-dvh bg-slate-900 max-w-md mx-auto select-none overflow-hidden overscroll-none"
+      style={{
+        paddingTop: "env(safe-area-inset-top)",
+        paddingBottom: "env(safe-area-inset-bottom)",
+      }}
+    >
       {/* ── Score bar ── */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-800 shrink-0">
         <button
