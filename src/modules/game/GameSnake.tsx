@@ -404,17 +404,20 @@ export function GameSnake({ onBack, sprites }: Props) {
     if (ctx) drawFrame(ctx, gs, imgs.current);
   }, []);
 
+  // Auto-start on mount
+  useEffect(() => { startGame(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Block all native browser touch gestures (scroll, zoom, pull-to-refresh)
   // on the game area. React's synthetic handlers still fire normally.
   useEffect(() => {
     const el = swipeRef.current;
     if (!el) return;
-    const block = (e: TouchEvent) => e.preventDefault();
-    el.addEventListener("touchstart", block, { passive: false });
-    el.addEventListener("touchmove",  block, { passive: false });
+    const preventScroll = (e: TouchEvent) => e.preventDefault();
+    // Only block touchmove — preventing touchstart also cancels synthetic
+    // click events, making buttons untappable on mobile.
+    el.addEventListener("touchmove", preventScroll, { passive: false });
     return () => {
-      el.removeEventListener("touchstart", block);
-      el.removeEventListener("touchmove",  block);
+      el.removeEventListener("touchmove", preventScroll);
     };
   }, []);
 
@@ -492,20 +495,6 @@ export function GameSnake({ onBack, sprites }: Props) {
       >
         <canvas ref={canvasRef} className="w-full h-full block" />
 
-        {/* Start prompt */}
-        {!started && (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-900/80">
-            <motion.button
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              onClick={startGame}
-              className="px-10 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xl font-melody shadow-lg active:scale-95 transition-transform"
-            >
-              Comenzar
-            </motion.button>
-          </div>
-        )}
 
         {/* Celebration */}
         <AnimatePresence>
