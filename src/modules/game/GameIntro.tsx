@@ -17,7 +17,7 @@ const instructions = [
   {
     icon: "",
     title: "Recoge tus cosas favoritas, mi amor",
-    text: "Apareceran objetos especiales que te dan puntos extra o habilidades.",
+    text: "Apareceran objetos que te dan puntos.",
   },
   {
     icon: "",

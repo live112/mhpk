@@ -448,10 +448,10 @@ export function GameSnake({ onBack, sprites }: Props) {
     if (gs && !gs.dead && !isOpposite(gs.dir, dir)) gs.nextDir = dir;
   };
 
-  //   const pushDir = (d: Dir) => {
-  //     const gs = gsRef.current;
-  //     if (gs && !gs.dead && !isOpposite(gs.dir, d)) gs.nextDir = d;
-  //   };
+  const pushDir = (d: Dir) => {
+    const gs = gsRef.current;
+    if (gs && !gs.dead && !isOpposite(gs.dir, d)) gs.nextDir = d;
+  };
 
   return (
     <div className="flex flex-col h-screen bg-slate-900 max-w-md mx-auto select-none overflow-hidden">
@@ -468,7 +468,6 @@ export function GameSnake({ onBack, sprites }: Props) {
         </span>
         <EmotionBadge score={score} />
       </div>
-
       {/* ── Canvas ── */}
       <div
         className="flex-1 relative overflow-hidden"
@@ -586,8 +585,7 @@ export function GameSnake({ onBack, sprites }: Props) {
           )}
         </AnimatePresence>
       </div>
-
-      {/* ── D-pad ──
+      ── D-pad ──
       <div className="shrink-0 bg-slate-800 py-4 px-4">
         <div className="grid grid-cols-3 gap-2 w-36 mx-auto">
           <div />
@@ -600,7 +598,7 @@ export function GameSnake({ onBack, sprites }: Props) {
           <DPadBtn label="▼" onPress={() => pushDir("down")} />
           <div />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
@@ -643,17 +641,17 @@ function EmotionBadge({ score }: { score: number }) {
   );
 }
 
-// function DPadBtn({ label, onPress }: { label: string; onPress: () => void }) {
-//   return (
-//     <button
-//       onPointerDown={(e) => {
-//         e.preventDefault();
-//         onPress();
-//       }}
-//       className="h-12 rounded-xl bg-slate-700 active:bg-indigo-600 text-white text-xl
-//                  flex items-center justify-center transition-colors touch-none"
-//     >
-//       {label}
-//     </button>
-//   );
-// }
+function DPadBtn({ label, onPress }: { label: string; onPress: () => void }) {
+  return (
+    <button
+      onPointerDown={(e) => {
+        e.preventDefault();
+        onPress();
+      }}
+      className="h-12 rounded-xl bg-slate-700 active:bg-indigo-600 text-white text-xl
+                 flex items-center justify-center transition-colors touch-none"
+    >
+      {label}
+    </button>
+  );
+}
