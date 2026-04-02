@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { BackgroundElements } from "@components/landing/backgroundElements";
 import { FinalMessage } from "./FinalMessage";
-import { LandingNavbar } from "@components/landing/landingNavbar";
 import { ReasonCard } from "./ReasonCard";
 import { reasons } from "data/homeData";
 import { useState } from "react";
 import { useSwipeable } from "react-swipeable";
+import { Navbar } from "../navbar";
 
 export function PresentationScreen() {
   const [current, setCurrent] = useState(0);
@@ -42,7 +42,7 @@ export function PresentationScreen() {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <LandingNavbar />
+      <Navbar />
       <BackgroundElements />
 
       <div

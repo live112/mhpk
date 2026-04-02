@@ -8,11 +8,19 @@ export const siteConfig = {
       label: "",
       href: "/",
     },
+    {
+      label: "Jueguito",
+      href: "/jueguito",
+    },
   ],
   navMenuItems: [
     {
       label: "",
       href: "/",
+    },
+    {
+      label: "Jueguito",
+      href: "/jueguito",
     },
   ],
   links: {
